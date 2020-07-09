@@ -85,7 +85,9 @@ const GameScreen = props => {
                 <FlatList 
                     keyExtractor={(item) => item}
                     data={pastGuesses} 
-                    renderItem={renderListItem.bind(this, pastGuesses.length)} />
+                    renderItem={renderListItem.bind(this, pastGuesses.length)} 
+                    contentContainerStyle={styles.list}
+                />
             </View>
         </View>
     )
@@ -105,12 +107,12 @@ const styles = StyleSheet.create({
         maxWidth: '80%'
     },
     listContainer: {
-        width: '80%',
+        width: '60%',
         flex: 1
     },
     list: {
         flexGrow: 1,
-        alignItems: 'center',
+        // alignItems: 'center',
         justifyContent: 'flex-end'
     },
     listItem: {
@@ -121,7 +123,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        width: '60%'
+        width: '100%'
     }
 
 });
