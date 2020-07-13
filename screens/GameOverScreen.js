@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
     View, 
     Text, 
@@ -6,7 +6,7 @@ import {
     Button, 
     Image, 
     Dimensions,
-    ScrollView 
+    ScrollView, 
 } from 'react-native';
 
 import BodyText from '../components/BodyText';
@@ -15,11 +15,39 @@ import MainButton from '../components/MainButton';
 import Colors from '../constants/colors';
 
 const GameOverScreen = props => {
+    const [availableDeviceWidth, setAvailableDeviceWidth] = useState(
+        Dimensions.get('window').width
+    );
+    const [availableDeviceHeight, setAvailableDeviceHeight] = useState(
+        Dimensions.get('window').height
+    );
+
+    useEffect(() => {
+        const updateLayout = () => {
+            setAvailableDeviceWidth(Dimensions.get('window').width);
+            setAvailableDeviceHeight(Dimensions.get('window').height);
+        }
+
+        Dimensions.addEventListener('change', updateLayout);
+
+        return () => {
+            Dimensions.removeEventListener('change', updateLayout);
+        }
+    })
+
+    let imageContainer = styles.bigContainer;
+    let screen = styles.bigScreen;
+
+    if (availableDeviceHeight < 450 || availableDeviceWidth < 350) {
+        imageContainer = styles.smallContainer;
+        screen = styles.smallScreen;
+    }
+
     return (
         <ScrollView>
-            <View style={styles.screen}>
-                <TitleText>The Game is Over!</TitleText>
-                <View style={styles.imageContainer}>
+            <View style={screen}>
+                <TitleText>Game Over!</TitleText>
+                <View style={imageContainer}>
                     <Image 
                         source={require('../assets/success.png')} 
                         style={styles.image}
@@ -38,24 +66,44 @@ const GameOverScreen = props => {
 };
 
 const styles = StyleSheet.create({
-    screen: {
+    bigScreen: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        paddingVertical: 80
     },
-    imageContainer: {
-        width: Dimensions.get('window').width * 0.7,
-        height: Dimensions.get('window').width * 0.7,
-        borderRadius: Dimensions.get('window').width * 0.7 / 2,
+    smallScreen: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingVertical: 10
+    },
+    bigContainer: {
+        width: 300,
+        height: 300,
+        borderRadius: 150,
+        marginVertical: 30,
         borderWidth: 3,
         borderColor: 'black',
         overflow: 'hidden',
-        marginVertical: Dimensions.get('window').height / 30
+    },
+    smallContainer: {
+        width: 100,
+        height: 100,
+        borderRadius: 50,
+        marginVertical: 15,
+        borderWidth: 3,
+        borderColor: 'black',
+        overflow: 'hidden',
     },
     image: {
         width: '100%',
         height: '100%'
     },
+    // imageSmall: {
+    //     width: '50%',
+    //     height: '50%'
+    // },
     resultContainer: {
         marginHorizontal: 30,
         marginVertical: Dimensions.get('window').height / 60
