@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     buttonContainer: {
         borderRadius: 25,
         overflow: 'hidden'
-    }
+    },
     buttonText: {
         color: 'white',
         fontFamily: 'open-sans',
