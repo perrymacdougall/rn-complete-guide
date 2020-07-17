@@ -38,7 +38,7 @@ const GameOverScreen = props => {
     let imageContainer = styles.bigContainer;
     let screen = styles.bigScreen;
 
-    if (availableDeviceHeight < 450 || availableDeviceWidth < 350) {
+    if (availableDeviceHeight < 500 || availableDeviceWidth < 350) {
         imageContainer = styles.smallContainer;
         screen = styles.smallScreen;
     }
@@ -70,13 +70,13 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        paddingVertical: 80
+        paddingVertical: 30
     },
     smallScreen: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        paddingVertical: 10
+        paddingVertical: 30
     },
     bigContainer: {
         width: 300,
